@@ -1,4 +1,5 @@
 using ConferencePlanner.Database;
+using ConferencePlanner.Database.Queries;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlite("Data Source=coferences.db"));
+//Configuring DB Context
+builder.Services.AddDbContext<ApplicationDBContext>(
+    options => options.UseSqlite("Data Source=coferences.db"));
+
+//Configuring GraphQL
+builder.Services
+    .AddGraphQLServer()
+    .AddQueryType<Query>();
 
 var app = builder.Build();
 
@@ -23,8 +31,19 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapControllers();
+
+// /ui/playground
+app.UseGraphQLPlayground();
+
+app.UseRouting();
+
 app.UseAuthorization();
 
-app.MapControllers();
+//Configuring GraphQL
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGraphQL();
+});
 
 app.Run();
