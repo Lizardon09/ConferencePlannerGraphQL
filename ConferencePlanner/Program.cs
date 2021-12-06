@@ -1,5 +1,6 @@
 using ConferencePlanner.Database;
 using ConferencePlanner.Database.Queries;
+using ConferencePlanner.GraphQL;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,10 +16,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDBContext>(
     options => options.UseSqlite("Data Source=coferences.db"));
 
-//Configuring GraphQL
-builder.Services
-    .AddGraphQLServer()
-    .AddQueryType<Query>();
+//Configuring GraphQL via extension
+builder.Services.ConfigureGraphQLService();
 
 var app = builder.Build();
 
