@@ -1,5 +1,10 @@
 ﻿using ConferencePlanner.Database.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ConferencePlanner.Database
 {
@@ -10,5 +15,6 @@ namespace ConferencePlanner.Database
         }
 
         public DbSet<Speaker> Speakers { get; set; }
+        public DbSet<Earphone> Earphones { get; set; }
     }
 }

@@ -18,4 +18,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ConferencePlanner.Database\ConferencePlanner.Database.csproj" />
+    <ProjectReference Include="..\ConferencePlanner.GraphQL\ConferencePlanner.GraphQL.csproj" />
+  </ItemGroup>
+
 </Project>

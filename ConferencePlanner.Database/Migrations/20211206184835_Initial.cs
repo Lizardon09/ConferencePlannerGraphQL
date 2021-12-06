@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace ConferencePlanner.Migrations
+namespace ConferencePlanner.Database.Migrations
 {
     public partial class Initial : Migration
     {

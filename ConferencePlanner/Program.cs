@@ -1,5 +1,4 @@
 using ConferencePlanner.Database;
-using ConferencePlanner.Database.Queries;
 using ConferencePlanner.GraphQL;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,8 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Configuring DB Context
-builder.Services.AddDbContext<ApplicationDBContext>(
-    options => options.UseSqlite("Data Source=coferences.db"));
+builder.Services.ConfigureDbContext();
 
 //Configuring GraphQL via extension
 builder.Services.ConfigureGraphQLService();
@@ -32,17 +30,11 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
-// /ui/playground
-app.UseGraphQLPlayground();
-
 app.UseRouting();
 
 app.UseAuthorization();
 
-//Configuring GraphQL
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapGraphQL();
-});
+//Configuring GraphQL via extension
+app.ConfigureGraphQLBuild();
 
 app.Run();
